@@ -11,6 +11,7 @@ var ctx = context.Background()
 
 func main() {
 	rdb := redis.NewClusterClient(&redis.ClusterOptions{
+		// my virtual box
 		Addrs: []string{"192.168.56.111:6379", "192.168.56.112:6379", "192.168.56.113:6379"},
 	})
 
@@ -36,24 +37,3 @@ func main() {
 	// Output: key value
 	// key2 does not exist
 }
-
-/*
-func main() {
-	cluster, err := redis.NewCluster(
-		&redis.Options{
-			StartNodes:   []string{"192.168.56.111:6379", "192.168.56.112:6379", "192.168.56.113:6379"},
-			ConnTimeout:  50 * time.Millisecond,
-			ReadTimeout:  50 * time.Millisecond,
-			WriteTimeout: 50 * time.Millisecond,
-			KeepAlive:    16,
-			AliveTime:    60 * time.Second,
-		})
-	defer cluster.Close()
-	if err != nil {
-		log.Fatalf("redis.New error: %s", err.Error())
-	}
-
-	cluster.Do("SET", "foo", "bar")
-
-}
-*/
