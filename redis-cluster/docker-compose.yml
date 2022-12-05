@@ -1,0 +1,81 @@
+version: "3"
+services:
+  redis-node-01:
+    platform: linux/x86_64
+    image: redis:6.2
+    container_name: redis01
+    volumes:
+      - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf --port 7011
+    ports:
+      - 7011:7011
+      - 7012:7012
+      - 7013:7013
+      - 7014:7014
+      - 7015:7015
+      - 7016:7016
+
+  redis-node-02:
+    network_mode: "service:redis-node-01"
+    platform: linux/x86_64
+    image: redis:6.2
+    container_name: redis02
+    volumes:
+      - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf --port 7012
+
+  redis-node-03:
+    network_mode: "service:redis-node-01"
+    platform: linux/x86_64
+    image: redis:6.2
+    container_name: redis03
+    volumes:
+      - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf --port 7013
+
+  redis-node-04:
+    network_mode: "service:redis-node-01"
+    platform: linux/x86_64
+    image: redis:6.2
+    container_name: redis04
+    volumes:
+      - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf --port 7014
+
+  redis-node-05:
+    network_mode: "service:redis-node-01"
+    platform: linux/x86_64
+    image: redis:6.2
+    container_name: redis05
+    volumes:
+      - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf --port 7015
+ 
+  redis-node-06:
+    network_mode: "service:redis-node-01"
+    platform: linux/x86_64
+    image: redis:6.2
+    container_name: redis06
+    volumes:
+      - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf --port 7016
+ 
+  # redis-node-2:
+  #   network_mode: "service:redis-cluster"
+  #   platform: linux/x86_64
+  #   image: redis:6.2
+  #   container_name: redis2
+  #   volumes:
+  #     - ./redis2.conf:/usr/local/etc/redis/redis.conf
+  #   command: redis-server /usr/local/etc/redis/redis.conf
+
+  # redis-cluster-entry:
+  #   network_mode: "service:redis-cluster"
+  #   platform: linux/x86_64
+  #   image: redis:6.2
+  #   container_name: redis-cluster-entry
+  #   command: redis-cli --cluster create 127.0.0.1:6379 127.0.0.1:6380 127.0.0.1:6381 --cluster-yes
+  #   depends_on:
+  #     - redis-cluster
+  #     - redis-node-1
+  #     - redis-node-2
